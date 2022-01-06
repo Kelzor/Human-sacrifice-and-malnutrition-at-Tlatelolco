@@ -121,10 +121,10 @@ chiU20 <- chisq.test(continTableAll)
 chiU20$observed
 round(chiU20$expected, 2)
 round(chiU20$residuals, 2)
-corrplot(chiU20$residuals, tl.col = 'black', is.cor=FALSE)
+corrplot(chiU20$residuals, tl.cex = 1.5, tl.col = 'black', is.cor=FALSE)
 contrib <- 100*chiU20$residuals^2/chiU20$statistic
 round(contrib, 3)
-corrplot(contrib, col = COL1('Purples'), tl.col = 'black', is.cor = FALSE)
+corrplot(contrib, col = COL1('Purples'), tl.cex = 1.5, tl.col = 'black', is.cor = FALSE)
 
 fishCeremon <- fisher.test(continTableAll) #fisher comparison
 
@@ -151,10 +151,10 @@ chiCeremon <- chisq.test(continTableCerem)
 chiCeremon$observed
 round(chiCeremon$expected,2)
 round(chiCeremon$residuals, 2)
-corrplot(chiCeremon$residuals, tl.col = 'black', is.cor=FALSE)
+corrplot(chiCeremon$residuals, tl.cex = 1.5, tl.col = 'black', is.cor=FALSE)
 contrib <- 100*chiCeremon$residuals^2/chiCeremon$statistic
 round(contrib, 3)
-corrplot(contrib, col = COL1('Purples'), tl.col = 'black', is.cor = FALSE)
+corrplot(contrib, col = COL1('Purples'), tl.cex = 1.5, tl.col = 'black', is.cor = FALSE)
 
 fishCeremon <- fisher.test(continTableCerem) #fisher comparison
 
@@ -185,6 +185,6 @@ round(chiGNAten$residuals, 2)
 corrplot(chiGNAten$residuals, tl.col = 'black', is.cor=FALSE)
 contrib <- 100*chiGNAten$residuals^2/chiGNAten$statistic
 round(contrib, 3)
-corrplot(contrib, col = COL1('Purples'), tl.col = 'black', is.cor = FALSE)
+corrplot(contrib, col = COL1('Purples'), tl.cex = 1.5, tl.col = 'black', is.cor = FALSE)
 
 fishCeremon <- fisher.test(continTableGNAten) #fisher comparison
