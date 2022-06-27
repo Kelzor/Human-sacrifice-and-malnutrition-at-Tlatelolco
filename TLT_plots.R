@@ -12,7 +12,7 @@ cbp1 <- c("#999999", "#E69F00", "#56B4E9", "#009E73",
           "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
 #-------------------------------------------------------------------------------
-#Figure 3.
+#Figure 5.
 #Age-at-death distribution by context. Individuals from Templo R in the 30+ age 
 #category were arbitrarily assigned to this age category because their published 
 #age estimates are “adult.” It is possible that some of these individuals belong 
@@ -20,24 +20,24 @@ cbp1 <- c("#999999", "#E69F00", "#56B4E9", "#009E73",
 #inflated for Templo R. 
 #-------------------------------------------------------------------------------
 
-fig3 <- TLT %>% 
+fig5 <- TLT %>% 
   mutate(AgeGroup = cut(Age, 
                         breaks = c(-Inf,1,5,10,15,20,30,Inf), 
                         labels = c("0-1","1-5","5-10","10-15","15-20","20-30","30+"), 
                         right = TRUE, ordered_result = TRUE),
-         Context = factor(Context, levels = c("Ehecatl-Quetzalcoatl", "Grupo_Norte","Paso_a_desnivel", "Atenantitech"))) %>%
+         Context = factor(Context, levels = c("Atenantitech", "Grupo_Norte","Paso_a_desnivel", "Templo-R"))) %>%
   group_by(Context, AgeGroup) %>% #unique combinations of arguments
-  summarize(count = n()) %>% #creates column AND condenses data into smallest units
+  dplyr::summarize(count = n()) %>% #creates column AND condenses data into smallest units
   group_by(Context) %>%
   mutate(
     total = sum(count),
     perc = count/total
   ) %>%
-  ungroup(.) %>%
+  dplyr::ungroup(.) %>%
   ggplot(data, mapping = aes(fill=Context, y=perc, x=AgeGroup)) + 
   geom_bar(position=position_dodge(preserve = "single"), stat="identity") + 
-  xlab("Age Group (years)") + ylab("Frequency (by Context)") +
-  scale_fill_manual(labels = c("Templo R", "Grupo Norte", "Paso a Desnivel", "Atenantitech"),
+  xlab("Age Group (years)") + ylab("Frequency (by context)") +
+  scale_fill_manual(labels = c("Atenantitech", "Grupo Norte", "Paso a Desnivel", "Templo R"),
                     values = cbp1)
 
 #-------------------------------------------------------------------------------
