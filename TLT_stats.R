@@ -11,16 +11,16 @@ library(survival)
 library(corrplot)
 
 #-------------------------------------------------------------------------------
-#Figure 4.
+#Figure 6a.
 #Survival curves of all contexts
 #-------------------------------------------------------------------------------
 
 fit <- survfit(Surv(Age) ~ Context, data = TLT)
 
 ggsurvplot(fit,  size = 1,  # change line size
-           linetype = "strata", # change line type by groups,
+           linetype = c(1,2,3,4), # change line type
            legend.title = "Context",
-           legend.labs = c("Atenantitech", "Templo R", "Grupo Norte", "Paso a Desnivel"),
+           legend.labs = c("Atenantitech", "Grupo Norte", "Paso a Desnivel", "Templo R"),
            xlab = "Years",
            ylab = "Proportion alive",
            pval.size = 3.5,
@@ -36,7 +36,7 @@ sig <- survdiff(Surv(Age) ~ Context, data = TLT) #code to caclulate p value - no
 1 - pchisq(sig$chisq, length(sig$n) - 1)
 
 #-------------------------------------------------------------------------------
-#Figure 5.
+#Figure 6b.
 #Survival curves of ceremonial center contexts
 #-------------------------------------------------------------------------------
 
@@ -46,15 +46,15 @@ TLTceremonial <- TLT %>%
 fitC <- survfit(Surv(Age) ~ Context, data = TLTceremonial)
 
 ggsurvplot(fitC,  size = 1,  # change line size
-           linetype = "strata", # change line type by groups,
+           linetype = c(2,3,4), # change line type
            legend.title = "Context",
-           legend.labs = c("Templo R", "Grupo Norte", "Paso a Desnivel"),
+           legend.labs = c("Grupo Norte", "Paso a Desnivel", "Templo-R"),
            xlab = "Years",
            ylab = "Proportion alive",
            pval.size = 3.5,
            pval.coord = c(0,.10),
            break.time.by = 10,
-           palette = c("#999999", "#E69F00", "#56B4E9", "#009E73"),
+           palette = c("#E69F00", "#56B4E9", "#009E73"),
            #conf.int = TRUE, # Add confidence interval
            pval = TRUE, # Add p-value
            risk.table = FALSE
@@ -65,15 +65,15 @@ sig <- survdiff(Surv(Age) ~ Context, #code to caclulate p value - not necessary
 1 - pchisq(sig$chisq, length(sig$n) - 1)
 
 #-------------------------------------------------------------------------------
-#Figure 6
+#Figure 6c
 #Survival curves of residential and most closely related ceremonial center context
 #-------------------------------------------------------------------------------
 
 fitExp <- survfit(Surv(Age) ~ Context,
-                  data = subset(TLT, Context != "Ehecatl-Quetzalcoatl" & Context != "Grupo_Norte"))
+                  data = subset(TLT, Context != "Templo-R" & Context != "Grupo_Norte"))
 
 ggsurvplot(fitExp,  size = 1,  # change line size
-           linetype = "strata", # change line type by groups,
+           linetype = c(1,3), # change line type
            legend.title = "Context",
            legend.labs = c("Atenantitech", "Paso a Desnivel"),
            xlab = "Years",
@@ -81,15 +81,16 @@ ggsurvplot(fitExp,  size = 1,  # change line size
            pval.size = 3.5,
            pval.coord = c(0,.10),
            break.time.by = 10,
-           palette = c("#999999", "#E69F00", "#56B4E9", "#009E73"),
+           palette = c("#999999", "#56B4E9"),
            #conf.int = TRUE, # Add confidence interval
            pval = TRUE, # Add p-value
            risk.table = FALSE
 )
 
 sig <- survdiff(Surv(Age) ~ Context, #code to caclulate p value - not necessary
-                data = subset(TLT, Context != "Ehecatl-Quetzalcoatl" & Context != "Grupo_Norte"))
+                data = subset(TLT, Context != "Templo-R" & Context != "Grupo_Norte"))
 1 - pchisq(sig$chisq, length(sig$n) - 1)
+
 
 #----------------------------------------------------------------------------
 #Table 2
@@ -182,7 +183,7 @@ chiGNAten <- chisq.test(continTableGNAten)
 chiGNAten$observed
 round(chiGNAten$expected,2)
 round(chiGNAten$residuals, 2)
-corrplot(chiGNAten$residuals, tl.col = 'black', is.cor=FALSE)
+corrplot(chiGNAten$residuals, tl.cex = 1.5, tl.col = 'black', is.cor=FALSE)
 contrib <- 100*chiGNAten$residuals^2/chiGNAten$statistic
 round(contrib, 3)
 corrplot(contrib, col = COL1('Purples'), tl.cex = 1.5, tl.col = 'black', is.cor = FALSE)
