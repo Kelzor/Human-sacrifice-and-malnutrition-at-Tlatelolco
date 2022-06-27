@@ -5,8 +5,7 @@ library(dplyr)
 library(tibble)
 
 # Color blind-friendly palette with grey:
-cbp1 <- c("#999999", "#E69F00", "#56B4E9", "#009E73",
-          "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+cbp1 <- c("#E69F00","#56B4E9","#999999")
 
 # Load in data:
 TLTrc <- read.csv("radiocarbon_data.csv")
@@ -36,7 +35,7 @@ for (i in 1:length(TLTrcbchron)) {  #for each list (sample) in TLTrcbchron
   ageGrid = sample$ageGrid
   densities = sample[[5]] #densities = 5th item in list "sample"
   sample_data = data.frame(name, ageGrid, densities) #all values in dataframe
-  all_data = bind_rows(all_data, sample_data) #append dataframe to all_data (rbind also works)
+  all_data = dplyr::bind_rows(all_data, sample_data) #append dataframe to all_data (rbind also works)
   
 }
 
