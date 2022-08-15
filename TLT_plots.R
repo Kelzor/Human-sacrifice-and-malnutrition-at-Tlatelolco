@@ -13,11 +13,11 @@ cbp1 <- c("#999999", "#E69F00", "#56B4E9", "#009E73",
 
 #-------------------------------------------------------------------------------
 #Figure 5.
-#Age-at-death distribution by context. Individuals from Templo R in the 30+ age 
-#category were arbitrarily assigned to this age category because their published 
-#age estimates are “adult.” It is possible that some of these individuals belong 
-#in the 20-30 age category, so the frequency of 30+ category may be artificially 
-#inflated for Templo R. 
+#Age-at-death distribution by context. For the age ranges, the lower value is 
+#exclusive, and the higher value is inclusive. For example, Age Group 1-5 contains 
+#individuals more than one year of age at death up to and including five years of
+#age at death, whereas individuals one year or less of age at death are in Age
+#Group 0-1.
 #-------------------------------------------------------------------------------
 
 fig5 <- TLT %>% 
